@@ -1,0 +1,47 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply from: "${rootDir}/constants.gradle"
+
+android {
+  compileSdkVersion 27
+  defaultConfig {
+    applicationId "rm.com.pagie"
+    minSdkVersion 21
+    targetSdkVersion 27
+    versionCode 1
+    versionName "1.0"
+  }
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+      signingConfig signingConfigs.debug
+    }
+  }
+  dexOptions {
+    javaMaxHeapSize "2g"
+  }
+}
+
+dependencies {
+  implementation fileTree(dir: 'libs', include: ['*.jar'])
+  kapt glide.compiler
+
+  implementation supportDeps.appCompat
+  implementation supportDeps.design
+  implementation supportDeps.cardView
+  implementation glide.lib
+  implementation glide.okhttpIntegration
+  implementation kotlin.stdlib
+  implementation square.timber
+  implementation greenrobot.eventbus
+
+  implementation 'com.yqritc:android-scalablevideoview:1.0.4'
+
+  // I could use preferences for this, but this is much cleaner
+  implementation 'io.paperdb:paperdb:2.6'
+
+  //noinspection GradleDependency (stable version)
+  implementation 'com.zhihu.android:matisse:0.5.1-beta1'
+}
